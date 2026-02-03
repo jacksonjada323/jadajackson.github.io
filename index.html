@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jada's Little Universe</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: linear-gradient(135deg, #ffeef8 0%, #fff5f9 50%, #ffe8f5 100%);
+      color: #2c2c2c;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* Floating hearts animation */
+    .hearts-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      animation: float 15s infinite ease-in-out;
+      opacity: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Header styling */
+    header {
+      position: relative;
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #ff9ed4 0%, #ffb5e0 100%);
+      box-shadow: 0 10px 40px rgba(255, 158, 212, 0.3);
+      z-index: 10;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: white;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      animation: fadeInDown 1s ease;
+    }
+
+    .hero-image {
+      max-width: 300px;
+      width: 100%;
+      border-radius: 50%;
+      border: 8px solid white;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+      margin: 20px auto;
+      display: block;
+      transition: transform 0.5s ease;
+      cursor: pointer;
+    }
+
+    .hero-image:hover {
+      transform: scale(1.05) rotate(2deg);
+    }
+
+    .welcome-text {
+      font-size: 1.2em;
+      color: white;
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 0 20px;
+      animation: fadeInUp 1s ease 0.3s both;
+    }
+
+    /* Main content */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .section {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      margin: 30px 0;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      animation: fadeInUp 1s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(255, 158, 212, 0.2);
+    }
+
+    h2 {
+      font-size: 2.2em;
+      color: #ff9ed4;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #ff9ed4, #ffb5e0);
+      border-radius: 2px;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    .profile-image {
+      max-width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      margin: 30px 0;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      cursor: pointer;
+    }
+
+    .profile-image:hover {
+      transform: scale(1.02);
+      box-shadow: 0 15px 40px rgba(255, 158, 212, 0.3);
+    }
+
+    /* Interactive list */
+    ul {
+      list-style: none;
+      padding: 20px 0;
+    }
+
+    li {
+      font-size: 1.2em;
+      padding: 15px 20px;
+      margin: 10px 0;
+      background: linear-gradient(135deg, #fff5f9 0%, #ffe8f5 100%);
+      border-left: 5px solid #ff9ed4;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    li:before {
+      content: '🤍';
+      margin-right: 10px;
+      transition: transform 0.3s ease;
+      display: inline-block;
+    }
+
+    li:hover {
+      transform: translateX(10px);
+      background: linear-gradient(135deg, #ffb5e0 0%, #ff9ed4 100%);
+      color: white;
+      box-shadow: 0 5px 20px rgba(255, 158, 212, 0.4);
+    }
+
+    li:hover:before {
+      transform: scale(1.3) rotate(20deg);
+    }
+
+    /* Quote section */
+    .quote {
+      text-align: center;
+      font-style: italic;
+      font-size: 1.3em;
+      color: #ff9ed4;
+      padding: 30px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      margin: 40px 0;
+      position: relative;
+    }
+
+    .quote:before {
+      content: '"';
+      font-size: 4em;
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      opacity: 0.2;
+    }
+
+    /* Button */
+    .cta-button {
+      display: inline-block;
+      padding: 15px 40px;
+      background: linear-gradient(135deg, #ff9ed4 0%, #ffb5e0 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.1em;
+      font-weight: bold;
+      box-shadow: 0 10px 30px rgba(255, 158, 212, 0.3);
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      margin: 20px 0;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 158, 212, 0.5);
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      background: #ff9ed4;
+      color: white;
+      margin-top: 60px;
+    }
+
+    footer p {
+      color: white;
+      font-size: 1em;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      h2 {
+        font-size: 1.8em;
+      }
+
+      .section {
+        padding: 25px;
+      }
+
+      .hero-image {
+        max-width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating hearts background -->
+  <div class="hearts-container" id="heartsContainer"></div>
+
+  <!-- Header -->
+  <header>
+    <h1>✨ Jada's Little Universe ✨</h1>
+    <img class="hero-image" src="https://vlyzifpqemfanxllnmuf.supabase.co/storage/v1/object/public/files/Jada%20Jackson/images/Screenshot-2026-01-29-at-12.25.03-AM_1769664370607.png" alt="Jada's Universe" />
+    <p class="welcome-text">
+      Welcome to my little corner of the internet 🤍
+      A mix of pretty visuals, real life, and little moments that deserve to be remembered. Come vibe with me; soft life energy, random thoughts, and a little bit of chaos. This is where I romanticize my days, stay motivated, and keep it cute while doing the most.
+    </p>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- About Section -->
+    <div class="section">
+      <h2>So who is Jada???</h2>
+      <p>Hi, I'm Jada Jackson 🤍 A storyteller at heart with a love for creativity, culture, and real life moments. I represent ambition with softness, confidence with kindness, and growth with patience. I'm building a life I'm proud of, one step at a time, while staying present and enjoying the journey. My personality is equal parts warm, funny, and determined. I'm always evolving, always learning. Welcome to my space where we keep it honest, stylish, and inspiring.</p>
+    </div>
+
+    <!-- Brooklyn Section -->
+    <div class="section">
+      <p>I'm originally from Brooklyn, New York, and I carry that energy with me everywhere I go. I am bold, determined, and always moving with purpose. I'm currently in grad school studying broadcast journalism, and I want to use what I'm learning to tell stories that actually matter and connect with people in a real way. My goal is to shift the way communication is seen by making media feel more honest, more creative, and more human especially in a world where everything moves so fast. I'm learning how to use research, storytelling, and digital tools to create work that's impactful, meaningful, and impossible to ignore. This is just the beginning, but I'm building something bigger than me..</p>
+      
+      <img class="profile-image" src="https://vlyzifpqemfanxllnmuf.supabase.co/storage/v1/object/public/files/Jada%20Jackson/images/Photo-on-1-29-26-at-12.11-AM_1769663650361.jpg" alt="Jada" />
+    </div>
+
+    <!-- Quote -->
+    <div class="quote">
+      Building something bigger than me, one story at a time 💫
+    </div>
+
+    <!-- Favorites Section -->
+    <div class="section">
+      <h2>Some of my favorite things are:</h2>
+      <ul id="favoritesList">
+        <li>Soft life self-care (spa days, getting cute, relaxing)</li>
+        <li>Food + trying new spots (good eats alwayssss)</li>
+        <li>Travel / being outside & making memories</li>
+      </ul>
+      <button class="cta-button" onclick="addFavorite()">✨ Add Your Own Favorite ✨</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Jada's Little Universe | Made with love 🤍</p>
+  </footer>
+
+  <script>
+    // Create floating hearts
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '🤍';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+      heart.style.animationDelay = Math.random() * 5 + 's';
+      document.getElementById('heartsContainer').appendChild(heart);
+      
+      setTimeout(() => heart.remove(), 20000);
+    }
+
+    // Create hearts periodically
+    setInterval(createHeart, 3000);
+    for (let i = 0; i < 5; i++) {
+      setTimeout(createHeart, i * 1000);
+    }
+
+    // Interactive favorites list
+    function addFavorite() {
+      const userFavorite = prompt("What's one of YOUR favorite things? 🤍");
+      if (userFavorite && userFavorite.trim()) {
+        const li = document.createElement('li');
+        li.textContent = userFavorite;
+        li.style.animation = 'fadeInUp 0.5s ease';
+        document.getElementById('favoritesList').appendChild(li);
+      }
+    }
+
+    // Add click animations to images
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('click', function() {
+        this.style.animation = 'none';
+        setTimeout(() => {
+          this.style.animation = 'fadeInUp 0.5s ease';
+        }, 10);
+      });
+    });
+
+    // Smooth scroll effect
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
